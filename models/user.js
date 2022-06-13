@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       });
       this.belongsTo(models.Hospital, {
         foreignKey: 'hospitalId'
-      })
+      });
     }
   }
   User.init({

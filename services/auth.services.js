@@ -1,4 +1,5 @@
 const {User, Role} = require('../models/index');
+const roleService = require('./role.services');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const signup = async (data) => {
@@ -72,11 +73,26 @@ const getUserById = async (id) => {
     }
 }
 
+const updateUserRole = async (role, id) => {
+    try {
+        const user = await User.findByPk(id);
+        if (role == 'admin') {
+            await user.addRole(await roleService.getAdminRole());
+        } else if (role == 'doctor') {
+            await user.addRole(await roleService.getDoctorRole());
+        }
+        return user;
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 module.exports = {
     signup,
     getUserByEmail,
     checkPassword,
     createToken,
     verifyToken,
-    getUserById
+    getUserById,
+    updateUserRole
 }

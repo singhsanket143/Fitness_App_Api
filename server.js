@@ -17,6 +17,6 @@ if(process.env.SYNC) {
     db.sequelize.sync({force: true});
 }
 
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT,  () => {
     console.log('Server Started');
 })
