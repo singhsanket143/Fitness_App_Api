@@ -1,5 +1,6 @@
 const appointmentService = require('../services/appointment.services');
-
+const authService = require('../services/auth.services');
+const appointmentMailer = require('../mailers/appointment.mailers');
 const serverError = {
     message: 'Something went wrong',
     success: false,
@@ -16,6 +17,10 @@ const createAppointment = async (req, res) => {
         serverError.message = response.error;
         return res.status(400).json(serverError);
     }
+    const user = await authService.getUserById(req.body.patientId);
+    appointmentMailer.createAppointmentMailer({
+        email: user.email
+    });
     return res.status(201).json({
         data: response,
         success: true,
