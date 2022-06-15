@@ -1,4 +1,4 @@
-const validateCreateAppointment = (req, res, next) => {
+const validateAppointment = (req, res, next) => {
     if(!(req.body.doctorId && req.body.patientId)) {
         return res.status(400).json({
             message: 'Missing doctorId or patientId',
@@ -9,6 +9,6 @@ const validateCreateAppointment = (req, res, next) => {
     next();
 }
 
-module.export = {
-    validateCreateAppointment
+module.exports = {
+    validateAppointment
 }

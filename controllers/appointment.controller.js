@@ -23,6 +23,33 @@ const createAppointment = async (req, res) => {
     });
 }
 
+const getAllAppointments = async (req, res) => {
+    console.log("hit")
+    const response = await appointmentService.getAllAppointment(req.params.doctorId);
+    if(!response) {
+        return res.status(500).json(serverError);
+    }
+    return res.status(200).json({
+        data: response,
+        success: true,
+        message: 'fetched appointments'
+    });
+}
+
+const cancelAppointment = async (req, res) => {
+    const response = await appointmentService.cancelAppointment(req.body);
+    if(!response) {
+        return res.status(500).json(serverError);
+    }
+    return res.status(200).json({
+        data: response,
+        success: true,
+        message: 'successfully cancelled appointments'
+    });
+}
+
 module.exports = {
-    createAppointment
+    createAppointment,
+    getAllAppointments,
+    cancelAppointment
 }
